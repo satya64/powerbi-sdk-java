@@ -21,11 +21,11 @@ description = 'Java client library for MS Power BI REST APIs to provide access t
 
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 ext.url = 'https://satya64.github.io/powerbi-sdk-java/'
-ext.nexusUrl = findProperty('nexusUrl')
-ext.nexusUsername = findProperty('nexusUsername')
-ext.nexusPwd = findProperty('nexusPwd')
-ext.customSigningKey = findProperty('signingKey')
-ext.customSigningPassword = findProperty('signingPassword')
+ext.nexusUrl = System.getenv("NEXUS_URL")
+ext.nexusUsername = System.getenv("NEXUS_USERNAME")
+ext.nexusPwd = System.getenv("NEXUS_PASSWORD")
+ext.customSigningKey = System.getenv("SIGNING_SEC_KEY")
+ext.customSigningPassword = System.getenv("SIGNING_PASSWORD")
 
 println customSigningKey
 
@@ -130,8 +130,8 @@ task stuffZip(type: Zip) {
 
 signing {
     required { isReleaseVersion && gradle.taskGraph.hasTask("publish") }
-    def signingKey = findProperty("customSigningKey")
-    def signingPassword = findProperty("customSigningPassword")
+    def signingKey = System.getenv("SIGNING_SEC_KEY")
+    def signingPassword = ystem.getenv("SIGNING_PASSWORD")
     useInMemoryPgpKeys(signingKey, signingPassword)
     sign stuffZip
     sign publishing.publications.mavenJava
