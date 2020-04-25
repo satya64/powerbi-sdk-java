@@ -27,6 +27,8 @@ nexusPwd = System.getenv('nexusPwd')
 signingKey = System.getenv('signingKey').toString()
 signingPassword = System.getenv('signingPassword').toString()
 
+println nexusUrl
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
