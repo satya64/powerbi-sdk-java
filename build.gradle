@@ -11,23 +11,20 @@ plugins {
     id 'java-library'
     id 'idea'
     id 'maven-publish'
-    id 'signing'
     id 'io.franzbecker.gradle-lombok' version '3.3.0'
 }
 
 group = 'io.github.satya64'
-version = '1.0.0-SNAPHOT'
+version = '1.0.0'
 description = 'Java client library for MS Power BI REST APIs to provide access to Dashboards, Report, Groups, Datasets, generate embed tokens, etc.'
 
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 ext.url = 'https://satya64.github.io/powerbi-sdk-java/'
-ext.nexusUrl = findProperty('nexusUrl')
-ext.nexusUsername = findProperty('nexusUsername')
-ext.nexusPwd = findProperty('nexusPwd')
-ext.customSigningKey = findProperty('signingKey')
-ext.customSigningPassword = findProperty('signingPassword')
-
-println customSigningKey
+ext.nexusUrl = System.getenv("NEXUS_URL")
+ext.nexusUsername = System.getenv("NEXUS_USERNAME")
+ext.nexusPwd = System.getenv("NEXUS_PASSWORD")
+//ext.signingKey = System.getenv("SIGNING_SEC_KEY")
+//ext.signingPassword = System.getenv("SIGNING_PASSWORD")
 
 configurations {
     compileOnly {
@@ -119,22 +116,28 @@ publishing {
     }
 }
 
-tasks.withType(Sign) {
-    onlyIf { isReleaseVersion }
-}
+if (!project.hasProperty('skipSign')) {
+    apply plugin: 'signing'
 
-task stuffZip(type: Zip) {
-    archiveBaseName = "stuff"
-    from "src/stuff"
-}
+    tasks.withType(Sign) {
+        onlyIf { isReleaseVersion }
+    }
 
-signing {
-    required { isReleaseVersion && gradle.taskGraph.hasTask("publish") }
-    def signingKey = findProperty("customSigningKey")
-    def signingPassword = findProperty("customSigningPassword")
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign stuffZip
-    sign publishing.publications.mavenJava
+    task stuffZip(type: Zip) {
+        archiveBaseName = "stuff"
+        from "src/stuff"
+    }
+
+
+    signing {
+        if (isReleaseVersion && !project.hasProperty('skipSign')) {
+            def key = System.getenv("SIGNING_SEC_KEY").normalize()
+            def pwd = System.getenv("SIGNING_PASSWORD")
+            useInMemoryPgpKeys(key, pwd)
+            sign stuffZip
+            sign publishing.publications.mavenJava
+        }
+    }
 }
 
 dependencies {
