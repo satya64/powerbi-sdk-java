@@ -26,7 +26,7 @@ public class GroupOperations {
      * The method requires that below permissions enabled for the access token passed
      * - Workspace.Read.All or Workspace.ReadWrite.All
      *
-     * @return ODataResponse<List < Group>>
+     * @return {@code ODataResponse<List<Group>>}
      * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
      * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
      */
@@ -40,7 +40,7 @@ public class GroupOperations {
      * - Workspace.ReadWrite.All
      *
      * @param groupCreationRequest Valid GroupCreationRequest object
-     * @return ODataResponse<List < Group>>
+     * @return {@code ODataResponse<List<Group>>}
      * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
      * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
      */
@@ -83,7 +83,7 @@ public class GroupOperations {
      * - Workspace.Read.All or Workspace.ReadWrite.All
      *
      * @param groupId group id
-     * @return ODataResponse<List < GroupUser>>
+     * @return {@code ODataResponse<List<GroupUser>>}
      * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
      * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
      */

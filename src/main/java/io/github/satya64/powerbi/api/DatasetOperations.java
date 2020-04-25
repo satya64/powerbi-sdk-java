@@ -25,7 +25,7 @@ public class DatasetOperations {
      * The method requires that below permissions are enabled for the access token passed
      * - Dataset.ReadWrite.All or Dataset.Read.All
      *
-     * @return ODataResponse<List < Dataset>
+     * @return {@code ODataResponse<List<Dataset>>}
      * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
      * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
      */
@@ -39,7 +39,7 @@ public class DatasetOperations {
      * - Dataset.ReadWrite.All or Dataset.Read.All
      *
      * @param groupId group id
-     * @return ODataResponse<List < Dataset>>
+     * @return {@code ODataResponse<List<Dataset>>}
      * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
      * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
      */
@@ -51,7 +51,7 @@ public class DatasetOperations {
     /**
      * The method requires that below permissions are enabled for the access token passed
      * - Dataset.ReadWrite.All or Dataset.Read.All
-     *
+     * @param datasetId dataset id
      * @return Dataset
      * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
      * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
@@ -64,8 +64,8 @@ public class DatasetOperations {
     /**
      * The method requires that below permissions are enabled for the access token passed
      * - Dataset.ReadWrite.All or Dataset.Read.All
-     *
      * @param groupId group id
+     * @param datasetId dataset id
      * @return Dataset
      * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
      * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages

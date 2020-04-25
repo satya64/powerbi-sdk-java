@@ -30,7 +30,7 @@ public class ReportOperations {
      * The method requires that below permissions enabled for the access token passed
      * - Report.ReadWrite.All or Report.Read.All
      *
-     * @return ODataResponse<List < Report>>
+     * @return {@code ODataResponse<List<Report>>}
      * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
      * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
      */
@@ -44,7 +44,7 @@ public class ReportOperations {
      * - Report.ReadWrite.All or Report.Read.All
      *
      * @param groupId group id
-     * @return ODataResponse<List < Report>>
+     * @return {@code ODataResponse<List<Report>>}
      * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
      * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
      */
@@ -72,6 +72,7 @@ public class ReportOperations {
      * - Report.ReadWrite.All or Report.Read.All
      *
      * @param groupId group id
+     * @param reportId report id
      * @return Report
      * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
      * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
@@ -146,7 +147,7 @@ public class ReportOperations {
      * - Report.ReadWrite.All or Report.Read.All
      *
      * @param groupId group id
-     * @return ODataResponse<List < Datasource>>
+     * @return {@code ODataResponse<List<Datasource>>}
      * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
      * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
      */
@@ -161,7 +162,7 @@ public class ReportOperations {
      *
      * @param groupId  group id
      * @param reportId report id
-     * @return ODataResponse<List < Datasource>>
+     * @return {@code ODataResponse<List<Datasource>>}
      * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
      * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
      */
