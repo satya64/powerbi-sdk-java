@@ -31,8 +31,8 @@ jobs:
       env:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        signingPassword: ${{secrets.SIGNING_PASSWORD}}
-        signingKey: ${{secrets.SIGNING_SEC_KEY}}
-        nexusUrl: ${{secrets.NEXUS_URL}}
-        nexusUsername: ${{secrets.NEXUS_USERNAME}}
-        nexusPwd: ${{secrets.NEXUS_PASSWORD}}
+        SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+        SIGNING_SEC_KEY: ${{ secrets.SIGNING_SEC_KEY }}
+        NEXUS_URL: ${{ secrets.NEXUS_URL }}
+        NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+        NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
