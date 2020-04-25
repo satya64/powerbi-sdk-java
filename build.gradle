@@ -24,8 +24,10 @@ ext.url = 'https://satya64.github.io/powerbi-sdk-java/'
 ext.nexusUrl = findProperty('nexusUrl')
 ext.nexusUsername = findProperty('nexusUsername')
 ext.nexusPwd = findProperty('nexusPwd')
-ext.signingKey = findProperty('signingKey')
-ext.signingPassword = findProperty('signingPassword')
+ext.customSigningKey = findProperty('signingKey')
+ext.customSigningPassword = findProperty('signingPassword')
+
+println customSigningKey
 
 configurations {
     compileOnly {
@@ -128,6 +130,8 @@ task stuffZip(type: Zip) {
 
 signing {
     required { isReleaseVersion && gradle.taskGraph.hasTask("publish") }
+    def signingKey = findProperty("customSigningKey")
+    def signingPassword = findProperty("customSigningPassword")
     useInMemoryPgpKeys(signingKey, signingPassword)
     sign stuffZip
     sign publishing.publications.mavenJava
