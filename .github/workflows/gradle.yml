@@ -27,8 +27,8 @@ jobs:
       env:
         USERNAME: ${{ github.actor }}
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        signingPassword: ${{secrets.SIGNING_PASSWORD}}
-        signingKey: ${{ secrets.SIGNING_SEC_KEY }}
-        nexusUrl: ${{ secrets.NEXUS_URL }}
-        nexusUsername: ${{ secrets.NEXUS_USERNAME }}
-        nexusPwd: ${{ secrets.NEXUS_PASSWORD }}
+        ORG_GRADLE_PROJECT_signingPassword: ${{secrets.SIGNING_PASSWORD}}
+        ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_SEC_KEY }}
+        ORG_GRADLE_PROJECT_nexusUrl: ${{ secrets.NEXUS_URL }}
+        ORG_GRADLE_PROJECT_nexusUsername: ${{ secrets.NEXUS_USERNAME }}
+        ORG_GRADLE_PROJECT_nexusPwd: ${{ secrets.NEXUS_PASSWORD }}
