@@ -16,7 +16,7 @@ plugins {
 }
 
 group = 'io.github.satya64'
-version = '1.0.0-SNAPHOT'
+version = '1.0.0-SNAPSHOT'
 description = 'Java client library for MS Power BI REST APIs to provide access to Dashboards, Report, Groups, Datasets, generate embed tokens, etc.'
 
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
@@ -120,6 +120,7 @@ publishing {
 }
 
 tasks.withType(Sign) {
+    println isReleaseVersion
     onlyIf { isReleaseVersion }
 }
 
