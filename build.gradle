@@ -21,11 +21,11 @@ description = 'Java client library for MS Power BI REST APIs to provide access t
 
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 ext.url = 'https://satya64.github.io/powerbi-sdk-java/'
-nexusUrl = System.getenv('nexusUrl')
-nexusUsername = System.getenv('nexusUsername')
-nexusPwd = System.getenv('nexusPwd')
-signingKey = System.getenv('signingKey').toString()
-signingPassword = System.getenv('signingPassword').toString()
+nexusUrl = System.getenv('nexusUrl') ? System.getenv('nexusUrl').toString() : ''
+nexusUsername = System.getenv('nexusUsername') ? System.getenv('nexusUsername').toString() : ''
+nexusPwd = System.getenv('nexusPwd') ? System.getenv('nexusPwd').toString() : ''
+signingKey = System.getenv('signingKey') ? System.getenv('signingKey').toString() : ''
+signingPassword = System.getenv('signingPassword') ? System.getenv('signingPassword').toString() : ''
 
 println nexusUrl
 
