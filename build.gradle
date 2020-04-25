@@ -12,12 +12,16 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'signing'
+    id 'io.franzbecker.gradle-lombok' version '3.3.0'
 }
 
 group = 'io.github.satya64'
-version = '1.0'
-description = 'Java client library for MS Power BI REST APIs to provide access to Dashboards, Report, Groups, Datasets, ' +
-        'generate embed tokens, etc.'
+version = '1.0.0-SNAPHOT'
+description = 'Java client library for MS Power BI REST APIs to provide access to Dashboards, Report, Groups, Datasets, generate embed tokens, etc.'
+
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+ext.url = 'https://satya64.github.io/powerbi-sdk-java/'
+
 
 configurations {
     compileOnly {
@@ -32,6 +36,24 @@ configurations {
 repositories {
     mavenLocal()
     jcenter()
+}
+
+task delombok(type: io.franzbecker.gradle.lombok.task.DelombokTask, dependsOn: compileJava) {
+    ext.outputDir = file("$buildDir/delombok")
+    outputs.dir(outputDir)
+    sourceSets.main.java.srcDirs.each {
+        inputs.dir(it)
+        args(it, "-d", outputDir)
+    }
+    doFirst {
+        outputDir.deleteDir()
+    }
+}
+
+javadoc {
+    dependsOn delombok
+    source = delombok.outputDir
+    failOnError = false
 }
 
 java {
@@ -51,8 +73,8 @@ publishing {
                 name = 'Microsoft PowerBI Java SDK'
                 packaging = 'jar'
                 artifactId = rootProject.name
-                description = description
-                url = 'https://github.com/satya64/powerbi-sdk-java'
+                description = project.description
+                url = 'https://satya64.github.io/powerbi-sdk-java'
 
                 licenses {
                     license {
@@ -71,7 +93,6 @@ publishing {
                     connection = 'scm:git:git://github.com/satya64/powerbi-sdk-java.git'
                     developerConnection = 'scm:git:ssh://github.com/satya64/powerbi-sdk-java.git'
                     url = 'https://github.com/satya64/powerbi-sdk-java'
-
                 }
             }
 
@@ -80,21 +101,25 @@ publishing {
 
     repositories {
         maven {
-
             credentials {
-                username nexusUsername
-                password nexusPwd
+                username project.hasProperty('nexusUsername') ? project.property('nexusUsername').toString() : ''
+                password project.hasProperty('nexusPwd') ? project.property('nexusPwd').toString() : ''
             }
-
-            def releasesRepoUrl = "${nexusUrl}/service/local/staging/deploy/maven2/"
-            def snapshotsRepoUrl = "${nexusUrl}/content/repositories/snapshots"
+            def nexU = project.hasProperty('nexusUrl') ? project.property('nexusUrl').toString() : ''
+            def releasesRepoUrl = "${nexU}/service/local/staging/deploy/maven2/"
+            def snapshotsRepoUrl = "${nexU}/content/repositories/snapshots"
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
         }
     }
 }
 
+tasks.withType(Sign) {
+    onlyIf { isReleaseVersion }
+}
+
 signing {
-    sign configurations.archives
+    required { isReleaseVersion && gradle.taskGraph.hasTask("publish") }
+    sign publishing.publications.mavenJava
 }
 
 dependencies {

@@ -31,3 +31,5 @@ build
 /powerbi-sdk-java.ipr
 /powerbi-sdk-java.iws
 /.idea/
+
+gradle.properties
