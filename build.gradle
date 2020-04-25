@@ -24,10 +24,10 @@ ext.url = 'https://satya64.github.io/powerbi-sdk-java/'
 ext.nexusUrl = System.getenv("NEXUS_URL")
 ext.nexusUsername = System.getenv("NEXUS_USERNAME")
 ext.nexusPwd = System.getenv("NEXUS_PASSWORD")
-ext.customSigningKey = System.getenv("SIGNING_SEC_KEY")
-ext.customSigningPassword = System.getenv("SIGNING_PASSWORD")
+ext.signingKey = System.getenv("SIGNING_SEC_KEY")
+ext.signingPassword = System.getenv("SIGNING_PASSWORD")
 
-println customSigningKey
+println signingKey
 
 configurations {
     compileOnly {
