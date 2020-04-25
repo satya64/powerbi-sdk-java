@@ -131,7 +131,7 @@ task stuffZip(type: Zip) {
 signing {
     required { isReleaseVersion && gradle.taskGraph.hasTask("publish") }
     def signingKey = System.getenv("SIGNING_SEC_KEY")
-    def signingPassword = ystem.getenv("SIGNING_PASSWORD")
+    def signingPassword = System.getenv("SIGNING_PASSWORD")
     useInMemoryPgpKeys(signingKey, signingPassword)
     sign stuffZip
     sign publishing.publications.mavenJava
