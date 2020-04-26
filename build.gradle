@@ -11,7 +11,6 @@ plugins {
     id 'java-library'
     id 'idea'
     id 'maven-publish'
-    id 'signing'
     id 'io.franzbecker.gradle-lombok' version '3.3.0'
 }
 
@@ -24,8 +23,8 @@ ext.url = 'https://satya64.github.io/powerbi-sdk-java/'
 ext.nexusUrl = System.getenv("NEXUS_URL")
 ext.nexusUsername = System.getenv("NEXUS_USERNAME")
 ext.nexusPwd = System.getenv("NEXUS_PASSWORD")
-ext.signingKey = System.getenv("SIGNING_SEC_KEY")
-ext.signingPassword = System.getenv("SIGNING_PASSWORD")
+//ext.signingKey = System.getenv("SIGNING_SEC_KEY")
+//ext.signingPassword = System.getenv("SIGNING_PASSWORD")
 
 configurations {
     compileOnly {
@@ -117,24 +116,27 @@ publishing {
     }
 }
 
-tasks.withType(Sign) {
-    onlyIf { isReleaseVersion }
-}
+if (!project.hasProperty('skipSign')) {
+    apply plugin: 'signing'
 
-task stuffZip(type: Zip) {
-    archiveBaseName = "stuff"
-    from "src/stuff"
-}
+    tasks.withType(Sign) {
+        onlyIf { isReleaseVersion }
+    }
 
-stuffZip.onlyIf {!project.hasProperty('skipSign')}
+    task stuffZip(type: Zip) {
+        archiveBaseName = "stuff"
+        from "src/stuff"
+    }
 
-signing {
-    if (isReleaseVersion && !project.hasProperty('skipSign')) {
-        def signingKey = System.getenv("SIGNING_SEC_KEY")
-        def signingPassword = System.getenv("SIGNING_PASSWORD")
-        useInMemoryPgpKeys(signingKey, signingPassword)
-        sign stuffZip
-        sign publishing.publications.mavenJava
+
+    signing {
+        if (isReleaseVersion && !project.hasProperty('skipSign')) {
+            def key = System.getenv("SIGNING_SEC_KEY").normalize()
+            def pwd = System.getenv("SIGNING_PASSWORD")
+            useInMemoryPgpKeys(key, pwd)
+            sign stuffZip
+            sign publishing.publications.mavenJava
+        }
     }
 }
 
