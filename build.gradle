@@ -126,9 +126,10 @@ task stuffZip(type: Zip) {
     from "src/stuff"
 }
 
+stuffZip.onlyIf {!project.hasProperty('skipSign')}
+
 signing {
-    required { isReleaseVersion }
-    if (required) {
+    if (isReleaseVersion && !project.hasProperty('skipSign')) {
         def signingKey = System.getenv("SIGNING_SEC_KEY")
         def signingPassword = System.getenv("SIGNING_PASSWORD")
         useInMemoryPgpKeys(signingKey, signingPassword)
