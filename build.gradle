@@ -23,8 +23,8 @@ ext.url = 'https://satya64.github.io/powerbi-sdk-java/'
 ext.nexusUrl = System.getenv("NEXUS_URL")
 ext.nexusUsername = System.getenv("NEXUS_USERNAME")
 ext.nexusPwd = System.getenv("NEXUS_PASSWORD")
-//ext.signingKey = System.getenv("SIGNING_SEC_KEY")
-//ext.signingPassword = System.getenv("SIGNING_PASSWORD")
+ext.signKey = System.getenv("SIGNING_SEC_KEY") ? System.getenv("SIGNING_SEC_KEY") : ''
+ext.signPassword = System.getenv("SIGNING_PASSWORD") ? System.getenv("SIGNING_PASSWORD") : ''
 
 configurations {
     compileOnly {
@@ -120,7 +120,7 @@ if (!project.hasProperty('skipSign')) {
     apply plugin: 'signing'
 
     tasks.withType(Sign) {
-        onlyIf { isReleaseVersion }
+        onlyIf { isReleaseVersion && !project.hasProperty('skipSign') }
     }
 
     task stuffZip(type: Zip) {
@@ -131,8 +131,8 @@ if (!project.hasProperty('skipSign')) {
 
     signing {
         if (isReleaseVersion && !project.hasProperty('skipSign')) {
-            def key = System.getenv("SIGNING_SEC_KEY").normalize()
-            def pwd = System.getenv("SIGNING_PASSWORD")
+            def key = signKey.normalize()
+            def pwd = signPassword
             useInMemoryPgpKeys(key, pwd)
             sign stuffZip
             sign publishing.publications.mavenJava
@@ -141,7 +141,6 @@ if (!project.hasProperty('skipSign')) {
 }
 
 dependencies {
-    implementation 'com.microsoft.rest:client-runtime:1.7.1'
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.okhttp3:okhttp:4.5.0'
     implementation 'com.squareup.retrofit2:converter-jackson:2.5.0'
