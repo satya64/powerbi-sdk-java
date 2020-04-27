@@ -1,0 +1,12 @@
+{
+  "@odata.context": "http://abc.analysis.windows.net/v1.0/myorg/groups/123-cb87-45f5-bce1-123/$metadata#reports/$entity",
+  "id": "123-a982-4666-b45e-789",
+  "reportId": "123-a982-4666-b45e-123",
+  "reportName": "report1",
+  "resourceLocation": "https://app.powerbi.com/groups/123-cb87-45f5-bce1-123/reports/123-a982-4666-b45e-123",
+  "embedUrl": "https://app.powerbi.com/reportEmbed?reportId=8888ae63-a982-4666-b45e-123&groupId=123-cb87-45f5-bce1-123&w=2&config=123",
+  "percentComplete": 0,
+  "lastActionDateTime": "2020-04-30T12:00:00.000Z",
+  "createdDateTime": "2020-04-30T12:00:00.000Z",
+  "status": "Running"
+}

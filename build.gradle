@@ -141,6 +141,7 @@ if (!project.hasProperty('skipSign')) {
 }
 
 dependencies {
+    implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.okhttp3:okhttp:4.5.0'
     implementation 'com.squareup.retrofit2:converter-jackson:2.5.0'

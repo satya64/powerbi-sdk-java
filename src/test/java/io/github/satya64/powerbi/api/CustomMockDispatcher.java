@@ -45,19 +45,32 @@ public class CustomMockDispatcher extends Dispatcher {
                 case "GET":
                     switch (Objects.requireNonNull(recordedRequest.getPath())) {
                         case "/reports":
-                            return response200(TestUtils.createReportsResponse());
                         case "/groups/123/reports":
                             return response200(TestUtils.createReportsResponse());
                         case "/reports/456":
-                            return response200(TestUtils.createReportResponse());
                         case "/groups/123/reports/456":
                             return response200(TestUtils.createReportResponse());
+                        case"/reports/456/exports/789":
+                        case"/groups/123/reports/456/exports/789":
+                            return response200(TestUtils.createReportExportToResponse("inprogress"));
+                        case"/reports/456/exports/012":
+                        case"/groups/123/reports/456/exports/012":
+                            return response200(TestUtils.createReportExportToResponse("success"));
                     }
                 case "DELETE":
                     switch (Objects.requireNonNull(recordedRequest.getPath())) {
                         case "/reports/456":
                         case "/groups/123/reports/456":
                             return response200(null);
+                    }
+                case "POST":
+                    switch (Objects.requireNonNull(recordedRequest.getPath())) {
+                        case"/reports/456/Export":
+                        case"/groups/123/reports/456/Export":
+                            return response200(null);
+                        case"/reports/456/ExportTo":
+                        case"/groups/123/reports/456/ExportTo":
+                            return response200(TestUtils.createReportExportToResponse(""));
                     }
             }
             return response404();
@@ -73,11 +86,9 @@ public class CustomMockDispatcher extends Dispatcher {
                 case "GET":
                     switch (Objects.requireNonNull(recordedRequest.getPath())) {
                         case "/datasets":
-                            return response200(TestUtils.createDatasetsResponse());
                         case "/groups/123/datasets":
                             return response200(TestUtils.createDatasetsResponse());
                         case "/datasets/456":
-                            return response200(TestUtils.createDatasetResponse());
                         case "/groups/123/datasets/456":
                             return response200(TestUtils.createDatasetResponse());
                     }

@@ -1,13 +1,9 @@
 package io.github.satya64.powerbi.api;
 
-import io.github.satya64.powerbi.api.model.CloneReportRequest;
-import io.github.satya64.powerbi.api.model.Datasource;
-import io.github.satya64.powerbi.api.model.Export;
-import io.github.satya64.powerbi.api.model.ExportReportRequest;
-import io.github.satya64.powerbi.api.model.ODataResponse;
-import io.github.satya64.powerbi.api.model.Report;
+import io.github.satya64.powerbi.api.model.*;
 import io.github.satya64.powerbi.api.services.ReportsService;
 import lombok.NonNull;
+import lombok.Value;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -292,6 +288,128 @@ public class ReportOperations {
      */
     public ResponseBody getFileOfExportToFileInGroup(@NonNull String groupId, @NonNull String reportId, @NonNull String exportId) throws IOException, PowerBiClientException {
         Response<ResponseBody> res = reportsService.getFileOfExportToFileInGroup(groupId, reportId, exportId).execute();
+        return ClientUtils.buildAndSendResponseBody(res);
+    }
+
+    /**
+     * The method requires that below permissions enabled for the access token passed
+     * - Report.ReadWrite.All or Report.Read.All
+     *
+     * @param reportId report id
+     * @param pageName page name
+     * @return Page page object
+     * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
+     * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
+     */
+    public Page getPage(@NonNull String reportId, @NonNull String pageName) throws IOException, PowerBiClientException {
+        Response<Page> res = reportsService.getPage(reportId, pageName).execute();
+        return ClientUtils.buildAndSendResponseBody(res);
+    }
+
+    /**
+     * The method requires that below permissions enabled for the access token passed
+     * - Report.ReadWrite.All or Report.Read.All
+     *
+     * @param groupId group id
+     * @param reportId report id
+     * @param pageName page name
+     * @return Page page object
+     * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
+     * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
+     */
+    public Page getPageInGroup(@NonNull String groupId, @NonNull String reportId, @NonNull String pageName) throws IOException, PowerBiClientException {
+        Response<Page> res = reportsService.getPageInGroup(groupId, reportId, pageName).execute();
+        return ClientUtils.buildAndSendResponseBody(res);
+    }
+
+    /**
+     * The method requires that below permissions enabled for the access token passed
+     * - Report.ReadWrite.All or Report.Read.All
+     *
+     * @param reportId report id
+     * @return {@code ODataResponse<List<Page>>}
+     * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
+     * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
+     */
+    public ODataResponse<List<Page>> getPages(@NonNull String reportId) throws IOException, PowerBiClientException {
+        Response<ODataResponse<List<Page>>> res = reportsService.getPages(reportId).execute();
+        return ClientUtils.buildAndSendResponseBody(res);
+    }
+
+    /**
+     * The method requires that below permissions enabled for the access token passed
+     * - Report.ReadWrite.All or Report.Read.All
+     *
+     * @param groupId group id
+     * @param reportId report id
+     * @return {@code ODataResponse<List<Page>>}
+     * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
+     * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
+     */
+    public ODataResponse<List<Page>> getPagesInGroup(@NonNull String groupId, @NonNull String reportId) throws IOException, PowerBiClientException {
+        Response<ODataResponse<List<Page>>> res = reportsService.getPagesInGroup(groupId, reportId).execute();
+        return ClientUtils.buildAndSendResponseBody(res);
+    }
+
+    /**
+     * The method requires that below permissions enabled for the access token passed
+     * - Report.ReadWrite.All
+     *
+     * @param reportId report id
+     * @param rebindReportRequest RebindReportRequest
+     * @return int
+     * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
+     * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
+     */
+    public int rebindReport(@NonNull String reportId, @NonNull RebindReportRequest rebindReportRequest) throws IOException, PowerBiClientException {
+        Response<Void> res = reportsService.rebindReport(reportId, rebindReportRequest).execute();
+        return ClientUtils.buildAndSendResponseCode(res);
+    }
+
+    /**
+     * The method requires that below permissions enabled for the access token passed
+     * - Report.ReadWrite.All
+     *
+     * @param groupId group id
+     * @param reportId report id
+     * @param rebindReportRequest RebindReportRequest
+     * @return int
+     * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
+     * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
+     */
+    public int rebindReportInGroup(@NonNull String groupId, @NonNull String reportId, @NonNull RebindReportRequest rebindReportRequest) throws IOException, PowerBiClientException {
+        Response<Void> res = reportsService.rebindReportInGroup(groupId, reportId, rebindReportRequest).execute();
+        return ClientUtils.buildAndSendResponseCode(res);
+    }
+
+    /**
+     * The method requires that below permissions enabled for the access token passed
+     * - Report.ReadWrite.All
+     *
+     * @param reportId report id
+     * @param updateReportContentRequest UpdateReportContentRequest
+     * @return Report
+     * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
+     * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
+     */
+    public Report updateReportContent(@NonNull String reportId, @NonNull UpdateReportContentRequest updateReportContentRequest) throws IOException, PowerBiClientException {
+        Response<Report> res = reportsService.updateReportContent(reportId, updateReportContentRequest).execute();
+        return ClientUtils.buildAndSendResponseBody(res);
+    }
+
+    /**
+     * The method requires that below permissions enabled for the access token passed
+     * - Report.ReadWrite.All
+     *
+     * @param groupId group id
+     * @param reportId report id
+     * @param updateReportContentRequest UpdateReportContentRequest
+     * @return Report
+     * @throws IOException            This exception occurs in case any error with HTTP connection to powerbi REST API
+     * @throws PowerBiClientException Wrapper exception class for converting powerbi errors to meaningful messages
+     */
+    public Report updateReportContentInGroup(@NonNull String groupId, @NonNull String reportId, @NonNull UpdateReportContentRequest updateReportContentRequest) throws IOException, PowerBiClientException {
+        Response<Report> res = reportsService.updateReportContentInGroup(groupId, reportId, updateReportContentRequest).execute();
         return ClientUtils.buildAndSendResponseBody(res);
     }
 

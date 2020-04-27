@@ -42,6 +42,18 @@ public final class TestUtils {
         return readJson("/data/report.json");
     }
 
+    public static String createReportExportToResponse(String status) {
+        switch (status) {
+            case "success":
+                return readJson("/data/report-export-success.json");
+            case "inprogress":
+                return readJson("/data/report-export-inprogress.json");
+            case "started":
+            default:
+                return readJson("/data/report-export-created.json");
+        }
+    }
+
     public static String createDatasetsResponse() {
         return readJson("/data/datasets.json");
     }
@@ -51,10 +63,19 @@ public final class TestUtils {
     }
 
     public static String readJson(String fileName) {
-        try (InputStream fis = TestUtils.class.getResourceAsStream(fileName)) {
-            return convertInputStreamToString(fis);
+        InputStream is = null;
+        try {
+            is = TestUtils.class.getResourceAsStream(fileName);
+            return convertInputStreamToString(is);
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                assert is != null;
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return "";
     }
