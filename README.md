@@ -62,6 +62,6 @@ This will internally update the Retrofit client configured in the API and reques
 
 ## Upcoming improvements
  
- We have thought of some more changes to improve the API.
+ We have more changes to improve the API.
  
  - Add adal4j authentication to incorporate token generation using the client itself.
