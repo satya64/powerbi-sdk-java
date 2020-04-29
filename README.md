@@ -52,7 +52,7 @@ This will instantiate the client and that's mostly enough for us get started wit
     
         client.getReportOperations().getReportsInGroup(groupId); // Returns a list of reports associated with group/workspace
   
-  <TODO> more examples
+ < TODO > - more examples
    
 Access tokens will have an expiry time, after which access requests will be denied. So new access toke need to be acquired and submitted to client instance.
 
