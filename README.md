@@ -35,6 +35,7 @@ https://docs.microsoft.com/en-us/azure/active-directory/azuread-dev/v1-authentic
 Below will help with acquiring tokens based on the type of your application.
 
 https://github.com/AzureAD/azure-activedirectory-library-for-java/wiki/ADAL4J-Basics
+
 https://github.com/AzureAD/azure-activedirectory-library-for-java/wiki/Acquire-tokens
 
 Once access token acquired, powerbi client instance can be initilized.
