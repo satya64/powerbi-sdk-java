@@ -16,15 +16,15 @@ The official PowerBI page doesn't have an API for Java developers to access - ![
 
 ### Maven
 
-<dependency>
-    <groupId>io.github.satya64</groupId>
-    <artifactId>powerbi-sdk-java</artifactId>
-    <version>1.0.0</version>
-</dependency>
+    <dependency>
+        <groupId>io.github.satya64</groupId>
+        <artifactId>powerbi-sdk-java</artifactId>
+        <version>1.0.0</version>
+    </dependency>
 
 ### Gradle
 
-compile group: 'io.github.satya64', name: 'powerbi-sdk-java', version: '1.0.0'
+    compile group: 'io.github.satya64', name: 'powerbi-sdk-java', version: '1.0.0'
 
 ### Usage
 
