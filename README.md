@@ -46,11 +46,11 @@ This will instantiate the client and that's mostly enough for us get started wit
 
  1. List your reports in your organization.
  
-        client.getReportOperations().getReports();
+        client.getReportOperations().getReports(); // Returns a list of reports of user.
     
  2. List reports in a group that you have access.
     
-        client.getReportOperations().getReportsInGroup(groupId); //workspace id
+        client.getReportOperations().getReportsInGroup(groupId); // Returns a list of reports associated with group/workspace
   
   <TODO> more examples
    
